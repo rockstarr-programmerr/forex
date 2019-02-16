@@ -98,10 +98,10 @@
   color: #6cbb23;
 }
 
-#san_pham {
+#nav_blog {
   right: 255px;
 }
-#nav_blog {
+#nav_help {
   right: 110px;
 }
 
@@ -109,28 +109,28 @@
   .nav_detail {
     top: 80px;
   }
-  #san_pham {
+  #nav_blog {
     right: 240px;
   }
-  #nav_blog {
+  #nav_help {
     right: 100px;
   }
 }
 
 @media only screen and (max-width: 1199px) {
-  #san_pham {
+  #nav_blog {
     right: 195px;
   }
-  #nav_blog {
+  #nav_help {
     right: 75px;
   }
 }
 
 @media only screen and (max-width: 991px) {
-  #san_pham {
+  #nav_blog {
     right: 160px;
   }
-  #nav_blog {
+  #nav_help {
     right: 50px;
   }
 }

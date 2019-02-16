@@ -871,23 +871,33 @@ if (pageTitle) {
 }
 
 $('#san_pham_drop').mouseenter(function() {
-   $('#nav_blog').slideUp(200);
+    $('#nav_blog').slideUp(200);
+    $('#nav_help').slideUp(200);
     $('#san_pham').slideDown(200);
 });
 $('#blog_drop').mouseenter(function() {
-   $('#san_pham').slideUp(200);
+    $('#san_pham').slideUp(200);
+    $('#nav_help').slideUp(200);
     $('#nav_blog').slideDown(200);
+});
+$('#help_drop').mouseenter(function() {
+    $('#san_pham').slideUp(200);
+    $('#nav_blog').slideUp(200);
+    $('#nav_help').slideDown(200);
 });
 $('header').mouseleave(function() {
     $('#nav_blog').slideUp(200);
+    $('#nav_help').slideUp(200);
     $('#san_pham').slideUp(200);
 });
 $('#trang_chu_drop').mouseover(function() {
     $('#nav_blog').slideUp(200);
+    $('#nav_help').slideUp(200);
     $('#san_pham').slideUp(200);
 });
 $('#search_drop').mouseover(function() {
     $('#nav_blog').slideUp(200);
+    $('#nav_help').slideUp(200);
     $('#san_pham').slideUp(200);
 });
 

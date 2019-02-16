@@ -4,7 +4,8 @@ from products.models import ForexProduct
 from introduction.models import Introduction, Banner
 
 def index(request):
-	forex_products = ForexProduct.objects.filter(available=True)
+	free_products = ForexProduct.objects.filter(available=True, price=0)
+	paid_products = ForexProduct.objects.filter(available=True, price__gt=0)
 
 	try:
 		introduction = Introduction.objects.get(name='Main introduction')
@@ -14,7 +15,8 @@ def index(request):
 	banners = Banner.objects.all()
 
 	context = {
-		'products': forex_products,
+		'free_products': free_products,
+		'paid_products': paid_products,
 		'introduction': introduction,
 		'banners': banners,
 	}

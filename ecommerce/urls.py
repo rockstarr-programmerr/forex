@@ -27,12 +27,12 @@ urlpatterns = [
     path('gio-hang/', include('cart.urls')),
     path('orders/', include('orders.urls')),
     path('blog/', include('blog.urls')),
-    # path('search/', include('search.urls')),
+    path('search/', include('search.urls')),
     path('help/', include('help.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     # path('', include('shop.urls')),
     path('', views.index, name='main_index')
-] 
+]
 
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -49,11 +49,46 @@
 			</div>
 			<div class="container_new">
 				<div class="row">
-					{% for product in products %}
-						<div class="col-6 col-md-4 col-xl-3 align-items-stretch p-0">
+					{% for product in free_products %}
+					<div class="col-6 col-md-3 align-items-stretch p-0">
+						<div class="box_shadow_baby d-flex flex-column m-2 p-2">
+						<!-- Box for picture, description, add to cart form -->
+							<div class="relative mb-4" onmouseover="showForm({{ forloop.counter0 }})" onmouseleave="hideForm({{ forloop.counter0 }})">
+
+								<!-- Picture -->
+								<div>
+									<a href="{% url 'products:product_list' %}">
+										<img class="d-block relative w-100" src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'img/default.jpg' %} {% endif %}" style="z-index: 600; border: 1px solid #fff; border-radius: 4px;" alt="{{ product.name }}">
+									</a>
+								</div>
+
+								<!-- Add to cart form -->
+								<div class="form_add_cart" style="position: absolute; bottom: 1px; left: 1px; right: 1px; z-index: 20000; opacity: 0; transition: opacity 0.3s; -webkit-transition: opacity 0.3s;">
+									<a href="#">
+										<button style="width: 100%; font-size: 13px; font-family: 'Maven Pro', sans-serif;" type="button" value="Thêm vào giỏ" class="genric-btn primary radius">
+											Download free
+										</button>
+									</a>
+								</div>
+
+							</div>
+							<!-- Box for name and price -->
+							<div class="row" style="min-height: 60px;">
+								<div class="col-6 text-center maven_font pr-0">
+									<a class="desc_a" style="color: #111; font-size: 18px;" onmouseover="changeTextColorOn({{ forloop.counter0 }})" onmouseleave="changeTextColorOff({{ forloop.counter0 }})" href="{% url 'products:product_list' %}">{{ product.name }}</a>
+								</div>
+								<div class="col-6 text-center maven_font px-0">
+									<p style="color: red; font-size: 18px;">{{ product.price }} &#x20AB</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					{% for product in paid_products %}
+						<div class="col-6 col-md-3 align-items-stretch p-0">
 							<div class="box_shadow_baby d-flex flex-column m-2 p-2">
 							<!-- Box for picture, description, add to cart form -->
-								<div class="relative mb-4" onmouseover="showForm({{ forloop.counter0 }})" onmouseleave="hideForm({{ forloop.counter0 }})">
+								<div class="relative mb-4" onmouseover="showForm({{ forloop.counter0|add:'1' }})" onmouseleave="hideForm({{ forloop.counter0|add:'1' }})">
 
 									<!-- Picture -->
 									<div>

@@ -56,9 +56,9 @@
 									<a id="trang_chu_drop" class="menubar_letters mx-2 mx-lg-3 mx-xl-4" href="{% url 'main_index' %}">Trang chủ</a>
 									<a id="san_pham_drop" class="menubar_letters mx-2 mx-lg-3 mx-xl-4" href="{% url 'products:product_list' %}">Tick data 99%</a>
 									<a id="blog_drop" class="menubar_letters mx-2 mx-lg-3 mx-xl-4" href="{% url 'blog:blog_list' %}">Blog</a>
-									<a class="menubar_letters mx-2 mx-lg-3 mx-xl-4" href="{% url 'help:help_list' %}">Trợ giúp</a>
+									<a id="help_drop" class="menubar_letters mx-2 mx-lg-3 mx-xl-4" href="{% url 'help:help_list' %}">Trợ giúp</a>
 									<a id="search_drop" class="menubar_letters mx-2 mx-lg-3 mx-xl-4" style="cursor: pointer;">
-										<i class="fa fa-search" onclick="toggleSearch()"></i>
+										<i class="fa fa-search" onclick="toggleSearch()" style="color: #fff;"></i>
 									</a>
 								</nav>
 							</div>
@@ -95,7 +95,17 @@
 					{% endfor %}
 				</ul>
 			</div>
-			{% endif %}	 -->
+			{% endif %}
+
+			{% if help_categories %}
+			<div id="nav_help" class="nav_detail merry_whether_font py-2 px-4">
+				<ul>
+					{% for category in help_categories %}
+					<li class="py-2"><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
 		</header>
 		<!-- End Header Area -->
 
