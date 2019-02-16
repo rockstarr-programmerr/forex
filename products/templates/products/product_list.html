@@ -3,24 +3,26 @@
 {% load static %}
 		
 	<section class="container mb-5">
-		<p class="d-none page-title">Products</p>
-
-		<div style="width: 100%;" class="text-center">
-			<a href="#">
-				<button class="btn btn-info mt-5 mb-3" style="cursor: pointer;">
-					<h1 class="text-center">DOWNLOAD</h1>
-				</button>
-			</a>
-		</div>
+		<h1 class="text-center mt-5 mb-3">Tick data 99%</h1>
 
 		<h2 class="text-center mb-3">Instruction</h2>
-		<p class="text-center" style="width: 70%; margin: 0 auto;">
-			Chúng ta vẫn biết rằng, làm việc với một đoạn văn bản dễ đọc và rõ nghĩa dễ gây rối trí và cản trở việc tập trung vào yếu tố trình bày văn bản. Lorem Ipsum có ưu điểm hơn so với đoạn văn bản chỉ gồm nội dung kiểu "Nội dung, nội dung, nội dung" là nó khiến văn bản giống thật hơn, bình thường hơn. Nhiều phần mềm thiết kế giao diện web và dàn trang ngày nay đã sử dụng Lorem Ipsum làm đoạn văn bản giả, và nếu bạn thử tìm các đoạn "Lorem ipsum" trên mạng thì sẽ khám phá ra nhiều trang web hiện vẫn đang trong quá trình xây dựng. Có nhiều phiên bản khác nhau đã xuất hiện, đôi khi do vô tình, nhiều khi do cố ý (xen thêm vào những câu hài hước hay thông tục).
+		<p class="text-center mb-3" style="width: 70%; margin: 0 auto;">
+			It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors.
 		</p>
+
+		<b>
+			<p class="text-center" style="width: 70%; margin: 0 auto;">
+				If your email has already been activate: 
+				<span class="pl-2">
+					<a href="#">Click here</a>
+				</span>
+			</p>
+		</b>
+			
 	</section>
 
 	<section class="container mb-5">
-		<table class="table table-striped mb-3">
+		<table class="table table-striped mb-5">
 			<thead>
 				<tr>
 					<th scope="col"></th>
@@ -114,32 +116,33 @@
 					<td>
 						<button class="btn btn-outline-info" style="cursor: pointer;">Free</button>
 					</td>
+					{% for product in paid_products %}
 					<td>
-						<a href="#">
-							<button class="btn btn-info" style="cursor: pointer;">Mua</button>
-						</a>
+						<form class="detail-page-text" action="{% url 'cart:cart_add' product.pk %}" method="post">
+			                {% csrf_token %}                                                
+			                <input type="hidden" name="quantity" value="1">
+			                <button type="submit" class="btn btn-info" style="cursor: pointer;">Buy</button>
+			            </form>
 					</td>
-					<td>
-						<a href="#">
-							<button class="btn btn-info" style="cursor: pointer;">Mua</button>
-						</a>
-					</td>
-					<td>
-						<a href="#">
-							<button class="btn btn-info" style="cursor: pointer;">Mua</button>
-						</a>
-					</td>
+					{% endfor %}
 				</tr>
 			</tbody>
 		</table>
 
-		<div style="width: 100%;" class="text-center">
-			<a href="#">
-				<button class="btn btn-info mt-5 mb-3" style="cursor: pointer;">
-					<h1 class="text-center">DOWNLOAD</h1>
-				</button>
-			</a>
-		</div>
+		<b>
+			<p class="text-center" style="width: 70%; margin: 0 auto;">
+				If your email has already been activate: 
+				<span class="pl-2">
+					<a style="color: green;" href="#">Click here</a>
+				</span>
+			</p>
+		</b>
+		<p class="text-center" style="width: 70%; margin: 0 auto;">
+			If you want data of more than 5 years, contact us:
+			<span class="pl-2">
+				forextory.support@gmail.com
+			</span>
+		</p>
 	</section>
 
 		

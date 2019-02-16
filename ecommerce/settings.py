@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # 'search.apps.SearchConfig',
     'help.apps.HelpConfig',
     'products.apps.ProductsConfig',
+    # 'download.apps.DownloadConfig',
     'colorfield',
     'ckeditor',
     'ckeditor_uploader',
