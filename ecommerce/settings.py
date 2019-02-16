@@ -28,8 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'rockstarrprogrammerr@gmail.com'
-EMAIL_HOST_PASSWORD = 'A274Vsd6'
+EMAIL_HOST_USER = 'uneevn@gmail.com'
+EMAIL_HOST_PASSWORD = 'unee@0905'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
