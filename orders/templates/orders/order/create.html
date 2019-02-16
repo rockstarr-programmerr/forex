@@ -1,0 +1,91 @@
+{% extends 'base/base.html' %}
+{% block content %}
+{% load static %}
+{% if cart|length > 0 %}
+<p class="d-none page-title">Đơn hàng</p>
+<div id="create_create_laptop_ipad" class="create_area_wrap">
+    <div class="row justify-content-start create_page_background_color flex_margin_zero">
+        <div class="col-6 create_page_background_color flex_margin_zero content_float_to_right">
+            <div id="table_box_create">
+                <h2 class="create_page_text">Đơn hàng</h2>
+                <table class="table">
+                    <tbody>
+                        {% for item in cart %}
+                            {% with product=item.product %}
+                                {% if item.quantity > 0 %}
+                                <tr>
+                                    <td> <img id="create_page_image" src="{% if product.image %}{{product.image.url}}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="{{ product.name }}"> </td>
+                                    <td class="create_text_font_name">{{product.name}}</td>
+                                    <td class="create_text_font">x{{item.quantity}}</td>
+                                    <td class="create_text_font_price">{{item.total_price}}VNĐ</td>
+                                </tr>
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td class="sumtotal">
+                                <p class="create_tong_cong">Tổng cộng:</p>
+                            </td>
+                            <td>
+                                <p class="sumtotal gio-hang-page-text" id="tong_cong">{{cart.get_total_price}}VNĐ</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-6 create_page_background_color flex_margin_zero">
+            <div id="form_box_create">
+                <h2 class="create_page_text">Thông tin giao hàng</h2>
+                <p class="maven_font">Các trường bắt buộc được đánh dấu *</p>
+                <form class="purchase_form" action="." method="post">{% csrf_token %}{{form.as_p}}<input type="submit" class="genric-btn primary radius" id="submit_order" value="Thanh toán"> </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="create_create_iphone" class="create_area_wrap">
+    <div class="create_page_background_color flex_margin_zero">
+        <div id="create_top_box" class="create_page_background_color flex_margin_zero">
+            <div id="form_box_create">
+                <h2 class="create_page_text">Thông tin giao hàng</h2>
+                <p class="maven_font">Các trường bắt buộc được đánh dấu *</p>
+                <form class="purchase_form text-center" action="." method="post">{% csrf_token %}{{form.as_p}}<input type="submit" class="genric-btn primary radius" id="submit_order" value="Thanh toán"> </form>
+            </div>
+        </div>
+        <div id="create_bottom_box" class="create_page_background_color flex_margin_zero">
+            <div id="create_table_box_iphone">
+                <h2 class="create_page_text">Đơn hàng</h2>
+                <table class="table">
+                    <tbody>
+                        {% for item in cart %}
+                            {% with product=item.product %}
+                                {% if item.quantity > 0 %}
+                                <tr>
+                                    <td> <img id="create_page_image" src="{% if product.image %}{{product.image.url}}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="{{ product.name }}"> </td>
+                                    <td class="create_text_font_name">{{product.name}}</td>
+                                    <td class="create_text_font">x{{item.quantity}}</td>
+                                    <td class="create_text_font_price">{{item.total_price}}VNĐ</td>
+                                </tr>
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td class="sumtotal">
+                                <p class="create_tong_cong">Tổng cộng:</p>
+                            </td>
+                            <td>
+                                <p class="sumtotal gio-hang-page-text" id="tong_cong">{{cart.get_total_price}}VNĐ</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}{% block content %}{% load static %}
+<p class="d-none page-title">Đơn hàng</p>
+<div id="created_page_main_box" class="create_page_background_color">
+    <div id="created_page_sub_box_1">
+        <h3 class="created_page_font">Cảm ơn bạn đã đến với UneeTree!</h3>
+        <p class="created_page_font">Đơn hàng của bạn đã được gửi đi.</p>
+    </div>
+    <div id="created_page_sub_box_2">
+        <a href="{% url 'products:product_list' %}" class="genric-btn primary circle arrow" id="link_1">
+            <p class="created_page_font">Tiếp tục mua sắm</p>
+        </a>
+        <p>hoặc</p>
+        <a href="{% url 'main_index' %}" class="genric-btn primary-border circle arrow" id="link_2">
+            <p class="created_page_font">Về trang chủ</p>
+        </a>
+    </div>
+</div>
+{% endblock %}

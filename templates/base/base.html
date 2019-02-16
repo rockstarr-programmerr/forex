@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	{% load static %}
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" type="image/png" href="{% static 'img/faviconfx.png' %}">
+	<!-- Author Meta -->
+	<meta name="author" content="TtheTtruth">
+	<!-- Meta Description -->
+	<meta name="description" content="Một trong những thương hiệu về cây nội thất hàng đầu tại Hà Nội, chuyên cung cấp tất cả các dòng cây để bàn và dòng cây trang trí nhà cửa, văn phòng, khách sạn,... UNEE mong muốn giúp mọi người hiểu hơn về các tác dụng của cây xanh với cuộc sống hiện nay, đặc biệt là chốn đô thị nhiều khói bụi.">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="cây cảnh, cây trang trí, cây trong nhà, cây văn phòng, cây nội thất, cây phong thủy, mua cây xanh, bán cây xanh, uniques from trees, unee, Hà Nội">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title></title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,300,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700&amp;subset=vietnamese" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900&amp;subset=vietnamese" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+
+	<!-- Django -->
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	<!-- bình thường sẽ là -->
+	<!-- <link rel="stylesheet" href="unee-tree-master/templates/base.html"> -->
+
+</head>
+<body style="background-color: #fff;">
+	
+	<div>
+		<!-- Start Header Area -->
+		<header id="index_header_laptop_ipad" class="default-header fixed_navbar">
+			<div class="container-fluid">
+				<div class="header-wrap">
+					<div class="header-top d-flex justify-content-between align-items-center">
+						<div class="d-flex justify-content-start">
+							<div class="logo">
+								<a href="{% url 'main_index' %}"><img src="{% static 'img/fxtory-logo.png' %}" alt="fxtory logo"></a>
+							</div>
+							<div class="d-flex align-items-center">
+								<h1 class="slogan">The most ticks while the cheapest</h1>
+							</div>
+						</div>
+						<div class="d-flex justify-content-end align-items-center">
+							<div id="nav_pipe" class="main-menubar d-flex align-items-center">
+								<nav id="laptop_nav">
+									<a id="trang_chu_drop" class="menubar_letters mx-2 mx-lg-3 mx-xl-4" href="{% url 'main_index' %}">Trang chủ</a>
+									<a id="san_pham_drop" class="menubar_letters mx-2 mx-lg-3 mx-xl-4" href="{% url 'products:product_list' %}">Tick data 99%</a>
+									<a id="blog_drop" class="menubar_letters mx-2 mx-lg-3 mx-xl-4" href="{% url 'blog:blog_list' %}">Blog</a>
+									<a class="menubar_letters mx-2 mx-lg-3 mx-xl-4" href="{% url 'help:help_list' %}">Trợ giúp</a>
+									<a id="search_drop" class="menubar_letters mx-2 mx-lg-3 mx-xl-4" style="cursor: pointer;">
+										<i class="fa fa-search" onclick="toggleSearch()"></i>
+									</a>
+								</nav>
+							</div>
+							<a id="shopping_cart_margin" href="{% url 'cart:cart_detail' %}">
+								<div class="shopping_cart_box">
+									<div class="shopping_cart_img_box">
+										<img src="{% static 'img/unee-shopping-cart-icon.png' %}" alt="Giỏ hàng">
+									</div>
+									<div class="shopping_cart_span_box">
+										<div class="shopping_cart_span">
+											{{ cart|length }}
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div id="search_box" class="my-4" style="position: absolute; right: 0; width: 0; overflow: hidden; z-index: 10000; transition: all ease-in-out 200ms; -webkit-transition: all ease-in-out 200ms;">
+					<div class="d-block maven_font" style="width: 400px">
+						<form class="form-inline" action="/search">
+							<input class="form-control mx-2" type="text" name="q" placeholder="Tìm kiếm...">
+							<button class="genric-btn primary circle arrow">Search<span class="lnr lnr-arrow-right"></span></button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			{% if blog_categories %}
+			<div id="nav_blog" class="nav_detail merry_whether_font py-2 px-4">
+				<ul>
+					{% for category in blog_categories %}
+					<li class="py-2"><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+			{% endif %}	 -->
+		</header>
+		<!-- End Header Area -->
+
+		<!-- Scroll up -->
+		<div id="scroll-to-top" class="scroll-up-btn text-center">
+			<i class="fa fa-chevron-up"></i>
+		</div>
+
+
+		<!-- Start Header Area -->
+		<header id="index_header_iphone" class="default-header fixed_navbar">
+			<h1 class="d-none">FOREXTORY - The most ticks while the cheapest</h1>
+			<div class="container-fluid small-container">
+				<div class="header-wrap">
+					<div class="header-top d-flex justify-content-between align-items-center">
+						<div class="d-flex justify-content-start">
+							<div class="logo-iphone">
+								<a href="{% url 'main_index' %}"><img src="{% static 'img/fxtory-logo2.png' %}" alt="fxtory logo"></a>
+							</div>
+							<div class="d-flex align-items-center">
+								<p class="slogan m-0 pl-2 py-0" style="font-size: 10px; line-height: 13px;">The most ticks <br> while the cheapest</p>
+							</div>
+						</div>
+						<div class="d-flex justify-content-end align-items-center">
+							<a id="shopping_cart_margin" href="{% url 'cart:cart_detail' %}">
+								<div class="shopping_cart_box">
+									<div class="shopping_cart_img_box">
+										<img src="{% static 'img/unee-shopping-cart-icon.png' %}" alt="Giỏ hàng">
+									</div>
+									<div class="shopping_cart_span_box">
+										<div class="shopping_cart_span">
+											{{ cart|length }}
+										</div>
+									</div>
+								</div>
+							</a>
+							<a class="menubar_letters" style="cursor: pointer;">
+								<i class="fa fa-search ml-3" onclick="toggleSearchIphone()"></i>
+							</a>
+							<div id="nav_pipe" class="main-menubar d-flex align-items-center">
+								<div onclick="toggleNav()" class="menu-bar" style="width: 24px; height: 24px;"><img id="nav-img-iphone" style="width: 100%;" src="{% static 'img/menu-bar.png' %}" alt="Thanh định vị"></div>
+							</div>
+						</div>
+					</div>
+				<div id="nav-iphone" class="mt-10 text-center">
+					<a class="merry_whether_font my-3 d-block" style="color: white; font-size: 18px;" href="{% url 'main_index' %}">Trang chủ</a>
+
+					<div class="mb-3">
+						<a class="merry_whether_font mx-2" style="color: white; font-size: 18px;" href="{% url 'products:product_list' %}">Sản phẩm</a>
+						<!-- {% if shop_categories %}
+						<i id="shop-categories-show" class="fa fa-chevron-down" style="color: #fff; font-size: 10px;"></i>
+						{% endif %} -->
+					</div>
+					
+					<div class="mb-3">
+						<a class="merry_whether_font mx-2" style="color: white; font-size: 18px;" href="{% url 'blog:blog_list' %}">Blog</a>
+						{% if blog_categories %}
+						<i id="blog-categories-show" class="fa fa-chevron-down" style="color: #fff; font-size: 10px;"></i>
+						{% endif %}
+					</div>
+					{% if blog_categories %}
+					<div class="text-center mb-3 py-1 merry_whether_font" id="iphone-blog-menu">
+						<ul>
+							{% for category in blog_categories %}
+							<li class="py-1"><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+					{% endif %}
+					<!--	help copy here -->
+					<div class="mb-3">
+						<a class="merry_whether_font mx-2" style="color: white; font-size: 18px;" href="{% url 'help:help_list' %}">Trợ giúp</a>
+						{% if help_categories %}
+						<i id="help-categories-show" class="fa fa-chevron-down" style="color: #fff; font-size: 10px;"></i>
+						{% endif %}
+					</div>
+					{% if help_categories %}
+					<div class="text-center mb-3 py-1 merry_whether_font" id="iphone-help-menu">
+						<ul>
+							{% for category in help_categories %}
+							<li class="py-1"><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+					{% endif %}
+					<!-- help end copy here -->
+					<p class="merry_whether_font mb-3" style="color: white; font-size: 18px;" onclick="toggleNav(); toggleSearchIphone()">Tìm kiếm</p>
+				</div>
+				</div>
+				<div id="search_box_iphone" class="my-4 maven_font" style="position: absolute; right: 0; width: 0; overflow: hidden; z-index: 10000; transition: all ease-in-out 200ms; -webkit-transition: all ease-in-out 200ms;">
+					<form class="form-inline" action="/search">
+						<input class="form-control mx-2 w-75 mx-auto" type="text" name="q" placeholder="Tìm kiếm...">
+						<button class="genric-btn primary circle arrow mt-1" style="margin: 0 auto;">Search<span class="lnr lnr-arrow-right"></span></button>
+					</form>
+				</div>
+			</div>
+		</header>
+		<!-- End Header Area -->
+
+		{% block content %} {% endblock %}
+
+		<!-- Strat Footer Area -->
+		<footer class="maven_font">
+			<div class="container_old">
+				<div class="row pt-60 pb-60">
+					<div class="col-12 col-xl-9 row">
+						<div class="col-xl-3 col-sm-6">
+							<div class="single-footer-widget">
+								<h2 class="maven_font text-uppercase mb-20" style="font-size: 17px;">Cặp phổ biến</h2>
+								<ul class="footer-nav">
+									<li><a target="_blank" href="{{ tree.get_absolute_url }}">EURUSD</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<div class="single-footer-widget">
+								<h2 class="maven_font text-uppercase mb-20" style="font-size: 17px;">Best indicators</h2>
+								<ul class="footer-nav">
+									<ul class="footer-nav">
+										{% for tree in top_trang_tri %}
+											<li><a target="_blank" href="{{ tree.get_absolute_url }}">{{ tree.name }}</a></li>
+										{% endfor %}
+									</ul>
+								</ul>
+							</div>
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<div class="single-footer-widget">
+								<h2 class="maven_font text-uppercase mb-20" style="font-size: 17px;">Tài liệu hay</h2>
+								<ul class="footer-nav">
+									<ul class="footer-nav">
+										{% for tree in top_suc_khoe %}
+											<li><a target="_blank" href="{{ tree.get_absolute_url }}">{{ tree.name }}</a></li>
+										{% endfor %}
+									</ul>
+								</ul>
+							</div>
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<div class="single-footer-widget">
+								<h2 class="maven_font text-uppercase mb-20" style="font-size: 17px;">Liên hệ</h2>
+								<p>
+									☎ 0965 785 096 <br>
+									✉ m.me/dongphan.forextory<br>
+									forextory.support@gmail.com
+								</p>
+								<div class="footer-social d-flex align-items-center">
+									<a target="_blank" href="https://www.facebook.com/dongphan.forextory"><i class="fa fa-facebook"></i></a>
+									<a target="_blank" href="https://web.telegram.org//forextory/"><i class="fa fa-telegram"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-xl-3">
+						<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Funee.vn%2F&tabs=timeline&width=300&height=220&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=261892971107898" width="300" height="220" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+					</div>				
+				</div>
+				<div class="footer-bottom d-flex justify-content-between align-items-center flex-wrap">
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					<p class="footer-text m-0">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</div>
+			</div>
+		</footer>
+		<!-- End Footer Area -->
+	</div>
+
+	<div id="hot-line" class="d-none d-sm-block">
+		<div id="hot-line-box" style="z-index: 10;">
+			<div id="hide-hotline" class="text-center hot-line-toggle">
+				<i class="fa fa-angle-right d-block w-100"></i>
+			</div>
+			<div id="hotline-detail">
+				<p>Hotline: <i class="fa fa-phone" style="color: #111;"></i> 0965 785 096 </p>
+			</div>
+		</div>
+		<div id="hot-line-box-close" style="display: none; z-index: 1;">
+			<div id="show-hotline" class="text-center hot-line-toggle">
+				<i class="fa fa-angle-left d-block mx-auto"></i>
+			</div>
+			<div id="hotline-symbol" class="d-flex align-items-center text-center">
+				<i class="fa fa-phone d-block mx-auto"></i>
+			</div>
+		</div>
+	</div>
+
+	<div id="mobile-hotline" class="d-sm-none">
+		<div id="mobile-hotline-detail" class="text-center">
+			<p>Hotline: <i class="fa fa-phone" style="color: #111; line-height: 40px;"></i> 0965 785 096 </p>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+	<script src="{% static 'js/main.js' %}"></script>
+	
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Your customer chat code -->
+    <div class="fb-customerchat"
+      attribution=setup_tool
+      page_id="455819648088942"
+      theme_color="#6cbb23"
+      greeting_dialog_display="hide"
+      logged_in_greeting="Chào bạn, đừng ngần ngại chat ngay với Forextory nếu bạn có điều gì thắc mắc :D"
+      logged_out_greeting="Chào bạn, đừng ngần ngại chat ngay với Forextory nếu bạn có điều gì thắc mắc :D">
+    </div>
+</body>
+</html>

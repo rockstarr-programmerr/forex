@@ -1,0 +1,136 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+{% load static %}
+		<p class="d-none page-title">Blog</p>
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-3">
+					<div class="text-center d-block d-md-none">
+						<h1 id="blog-list-heading" class="merry_whether_font pt-4" style="font-size: 24px; color: #888">Tin tức và Phân tích</h1>
+						<h2 id="blog-category-heading" class="merry_whether_font pb-3" style="font-size: 15px; color: #888">Chủ đề: <p class="d-inline" style="color: #6cbb23">{% if category %} {{ category.name }} {% else %} Tất cả {% endif %}</p></h2>
+					</div>							
+				</div>
+				<div class="d-none d-md-block col-8">
+					<div class="pl-4 d-none d-md-block text-center">
+						<h1 id="blog-list-heading" class="merry_whether_font pt-4" style="font-size: 24px; color: #888">Tin tức và Phân tích</h1>
+						<h2 id="blog-category-heading" class="merry_whether_font pb-3" style="font-size: 15px; color: #888">Chủ đề: <p class="d-inline" style="color: #6cbb23">{% if category %} {{ category.name }} {% else %} Tất cả {% endif %}</p></h2>
+					</div>
+				</div>
+			</div>
+			<div class="row maven_font">
+				<div class="px-3 d-none d-md-block col-3" id="blog-detail-nav">
+				{% if categories %}
+					<div>
+						<h2 class="maven_font pb-1 px-2 mb-2 rounded">Chủ đề</h2>
+						<ul>
+							<li class="py-2 ml-3"><a class="related-post-list" href="{% url 'blog:blog_list' %}">Tất cả</a></li>
+							{% for cate in categories %}
+							<li class="py-2 ml-3"><a class="related-post-list" href="{{ cate.get_absolute_url }}">{{ cate.name }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+				</div>
+				<div class="px-4 px-md-5 col-12 col-md-8" id="blog-post">
+					{% for blog in blogs %}
+						{% autoescape off %}
+						<!-- Blog title -->
+						<section>
+							<div class="pb-1" id="blog-title">
+								<h1 class="merry_whether_font text-center"><a class="dark_color_text" href="{{ blog.get_absolute_url }}">{{ blog.name }}</a></h1>
+							</div>
+						</section>
+
+						<!-- Blog date, author -->
+						<section>
+							<div class="" id="blog-date-author">
+								<h3 class="merry_whether_font dark_color_text text-center">Đăng ngày {{ blog.created_at|date:"j/n/Y" }} bởi <a href="/search/?q={{ blog.author }}">{{ blog.author }}</a></h3>
+							</div>
+							<div class="d-block mx-auto mt-10" id="separate-title-and-content" style="height: 20px;"></div>			
+						</section>
+
+						<!-- Blog image -->
+						{% if blog.main_img %}
+						<section>
+							<div class="mb-10 text-center" id="blog-image">
+								<a href="{{ blog.get_absolute_url }}"><img src="{{ blog.main_img.url }}"  alt="Ảnh bìa blog"></a>
+							</div>
+						</section>
+						{% endif %}
+
+						<!-- Blog content summary -->
+						{% if blog.content %}
+							<div class="blog-content-paragraph"> 
+								<div class="blog-content-text">{{ blog.content|truncatewords:50 }}</div>
+							</div>
+						{% endif %}
+
+						<!-- Xem them -->
+						<div class="text-center my-2">
+							<a id="continue-reading" href="{{ blog.get_absolute_url }}" class="genric-btn primary-border radius maven_font"><p class="p-0 m-0">Đọc tiếp...</p></a>
+						</div>
+
+						<!-- Chu de, comment -->
+						<div class="row py-1 mt-3 mb-4 mb-md-5 mx-1" id="category-comment-row">
+							<div class="col-8 p-0 m-0">
+								<p class="p-0 m-0">Chủ đề: <a href="{% url 'blog:blog_list_by_category' blog.category.slug %}">{{ blog.category }}</a></p>
+								{% if blog.hashtag %}
+								<p class="p-0 m-0">Hashtags: {% for tag in blog.split_to_single_tags %}<a href="/search/hashtags/?q={{ tag }}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+								{% endif %}
+							</div>
+							{% if blog.blogcomment_set.all|length > 0 %}
+							<div class="col-4 p-0 m-0 d-flex flex-row-reverse align-items-center">
+								<p class="p-0 m-0"><a href="{{ blog.get_absolute_url }}#tra-loi">{{ blog.blogcomment_set.all|length }} Bình luận</a></p>
+							</div>
+							{% else %}
+							<div class="col-4 p-0 m-0 d-flex flex-row-reverse align-items-center">
+								<p class="p-0 m-0"><a href="{{ blog.get_absolute_url }}#binh-luan">Viết bình luận</a></p>
+							</div>
+							{% endif %}
+						</div>	
+						{% endautoescape %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="d-none d-md-block">
+				{% if blogs.paginator.num_pages > 1 %}
+				<div class="relative py-4">
+					<div class="d-flex flex-row-reverse">
+						<div class="px-3"><a href="?page={{ blogs.paginator.num_pages }}"><i class="paginator fa fa-angle-double-right""></i></a></div>
+						<div class="px-3"><a {% if blogs.has_next %} href="?page={{ blogs.next_page_number }}" {% else %} href="?page={{ blogs.paginator.num_pages }}" {% endif %}><i class="paginator fa fa-angle-right"></i></a></div>
+						<div class="px-2">
+							<div>
+							{% for destination_page in paginator.page_range %}
+								<div class="px-2 d-inline"><a {% if int_current_page == destination_page %} class="paginator-active" {% else %} class="dark_color_text paginator"  {% endif %} href="?page={{ destination_page }}">{{ destination_page }}</a></div>
+							{% endfor %}
+							</div>
+						</div>
+						<div class="px-3"><a {% if blogs.has_previous %} href="?page={{ blogs.previous_page_number }}" {% else %} href="?page=1" {% endif %}><i class="paginator fa fa-angle-left"></i></a></div>
+						<div class="px-3"><a href="?page=1"><i class="paginator fa fa-angle-double-left"></i></a></div>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+			<div class="d-block d-md-none">
+				{% if blogs.paginator.num_pages > 1 %}
+				<div class="relative py-3 text-center">
+					<div class="px-1 d-inline"><a href="?page=1"><i class="paginator-iphone fa fa-angle-double-left"></i></a></div>
+					<div class="px-1 d-inline"><a {% if blogs.has_previous %} href="?page={{ blogs.previous_page_number }}" {% else %} href="?page=1" {% endif %}><i class="paginator-iphone fa fa-angle-left"></i></a></div>
+					<div class="px-1 d-inline">
+					{% for destination_page in paginator.page_range %}
+						<div class="px-2 d-inline"><a {% if int_current_page == destination_page %} class="paginator-iphone-active" {% else %} class="dark_color_text paginator-iphone"  {% endif %} href="?page={{ destination_page }}">{{ destination_page }}</a></div>
+					{% endfor %}
+					</div>
+					<div class="px-1 d-inline"><a {% if blogs.has_next %} href="?page={{ blogs.next_page_number }}" {% else %} href="?page={{ blogs.paginator.num_pages }}" {% endif %}><i class="paginator-iphone fa fa-angle-right"></i></a></div>
+					<div class="px-1 d-inline"><a href="?page={{ blogs.paginator.num_pages }}"><i class="paginator-iphone fa fa-angle-double-right""></i></a></div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+
+{% endblock %}
+
+		        
+

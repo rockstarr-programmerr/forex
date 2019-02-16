@@ -1,0 +1,374 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+		<p class="d-none page-title">Trang chủ</p>
+		
+		<!-- Start Banner Area -->
+		<div class="loading-box">
+			<img class="loading-img" src="{% static 'img/loading.gif' %}">
+		</div>
+		<div class="container_new" id="banner-section">			
+			<div class="banner-wrapper banner-box">
+				<i class="banner-btn banner-btn-prev fa fa-angle-left rounded"></i>
+				<i class="banner-btn banner-btn-next fa fa-angle-right rounded"></i>
+				<i class="banner-btn-block banner-btn-prev-block fa fa-angle-left rounded"></i>
+				<i class="banner-btn-block banner-btn-next-block fa fa-angle-right rounded"></i>
+				<div class="switch-banner-box">
+					<i class="switch-banner fa fa-circle-o px-1" id="switch-banner-1"></i>
+					<i class="switch-banner fa fa-circle-o px-1" id="switch-banner-2"></i>
+					<i class="switch-banner fa fa-circle-o px-1" id="switch-banner-3"></i>
+					<i class="switch-banner fa fa-circle-o px-1" id="switch-banner-4"></i>
+					<i class="switch-banner fa fa-circle-o px-1" id="switch-banner-5"></i>
+					<i class="switch-banner fa fa-circle-o px-1" id="switch-banner-6"></i>
+				</div>
+				{% for banner in banners reversed %}
+				<div class="banner-img" id="banner-img-{{ forloop.revcounter }}">
+					<img src="{{ banner.img.url }}" alt="Forextory banner">
+					<div class="banner-text maven_font font-weight-bold">
+						<p class="banner-text-h1 m-0 p-0" style="color: {{ banner.color_1 }};">{{ banner.text_1 }}</p>
+						<p class="banner-text-h2 m-0 p-0" style="color: {{ banner.color_2 }};">{{ banner.text_2 }}</p>
+						<p class="banner-text-p m-0 p-0" style="color: {{ banner.color_3 }};">{{ banner.text_3 }}</p>
+						<p class="banner-text-p m-0 p-0" style="color: {{ banner.color_4 }};">{{ banner.text_4 }}</p>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		<!-- End Banner Area -->
+
+		<!-- Start Feature Area -->
+		<section id="index_feature_laptop_ipad" class="feature-area pb-50  relative">
+			<div class="overlay overlay-bg"></div>
+			<div class="san_pham_index">
+				<div>
+					<a href="{% url 'products:product_list' %}"><h2>Tick Data 99%</h2></a>
+				</div>
+			</div>
+			<div class="container_new">
+				<div class="row">
+					{% for product in products %}
+						<div class="col-6 col-md-4 col-xl-3 align-items-stretch p-0">
+							<div class="box_shadow_baby d-flex flex-column m-2 p-2">
+							<!-- Box for picture, description, add to cart form -->
+								<div class="relative mb-4" onmouseover="{% if product.description %} showDescription({{ forloop.counter0 }}) {% endif %}; showForm({{ forloop.counter0 }})" onmouseleave="hideDescription({{ forloop.counter0 }}); hideForm({{ forloop.counter0 }})">
+
+									<!-- Picture -->
+									<div>
+										<a href="{{ product.get_absolute_url }}">
+											<img class="d-block relative w-100" src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'img/default.jpg' %} {% endif %}" style="z-index: 600; border: 1px solid #fff; border-radius: 4px;" alt="{{ product.name }}">
+										</a>
+									</div>
+
+									<!-- Description -->
+									<a href="{{ product.get_absolute_url }}">
+										<div class="product_desc_box" style="position: absolute; top: 1px; left: 1px; right: 1px; z-index: 20000; opacity: 0; transition: opacity 0.3s; -webkit-transition: opacity 0.3s;">
+											<p>{{ product.description|truncatewords:23 }}</p> 
+										</div>
+									</a>
+
+									<!-- Add to cart form -->
+									<div class="form_add_cart" style="position: absolute; bottom: 1px; left: 1px; right: 1px; z-index: 20000; opacity: 0; transition: opacity 0.3s; -webkit-transition: opacity 0.3s;">
+										<form class="detail-page-text" action="{% url "cart:cart_add" product.id %}" method="post">
+							                {% csrf_token %}                                                
+							                <input type="hidden" name="quantity" value="1">
+							                <input style="width: 100%; font-size: 13px; font-family: 'Maven Pro', sans-serif;" type="submit" value="Thêm vào giỏ" class="genric-btn primary radius">
+							            </form>
+									</div>
+
+								</div>
+								<!-- Box for name and price -->
+								<div class="row" style="min-height: 60px;">
+									<div class="col-6 text-center maven_font pr-0">
+										<a class="desc_a" style="color: #111; font-size: 18px;" onmouseover="changeTextColorOn({{ forloop.counter0 }})" onmouseleave="changeTextColorOff({{ forloop.counter0 }})" href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+									</div>
+									<div class="col-6 text-center maven_font px-0">
+										<p style="color: red; font-size: 18px;">{{ product.price }} &#x20AB</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				<div class="xem_them_box">
+					<a href="{% url 'products:product_list' %}" class="genric-btn primary-border circle arrow">Xem thêm<span class="lnr lnr-arrow-right"></span></a>
+				</div>
+			</div>
+		</section>
+		<!-- End Feature Area -->
+
+		<!-- Start Feature Area -->
+		<section id="index_feature_iphone" class="feature-area pb-70  relative">
+			<div class="overlay overlay-bg"></div>
+			<div class="san_pham_index">
+				<a href="{% url 'products:product_list' %}"><h2>Tick Data 99%</h2></a>
+			</div>
+			<div class="container_new">
+				<div class="row align-items-stretch">
+					{% for product in products %}
+					<div class="col-6 col-sm-4 align-items-stretch p-0">
+						<div class="box_shadow_baby d-flex flex-column m-1 p-1">
+							<div class="mb-2">
+								<a href="{{ product.get_absolute_url }}">
+									<img class="d-block relative w-100" src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'img/default.jpg' %} {% endif %}" style="z-index: 600; border: 1px solid #fff; border-radius: 4px;" alt="{{ product.name }}">
+								</a>
+							</div>
+							<div class="w-100 mx-auto row" style="min-height: 42px;">
+								<div class="col-6 text-center maven_font py-0">
+									<a href="{{ product.get_absolute_url }}"><p class="p-0 m-0" style="color: #111; font-size: 12px; line-height: 16px;">{{ product.name }}</p></a>
+								</div>
+								<div class="col-6 text-center maven_font p-0">
+									<p class="p-0 m-0" style="color: red; font-size: 12px; line-height: 16px;">{{ product.price }} &#x20AB</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				<div class="xem_them_box">
+					<a href="{% url 'products:product_list' %}" class="genric-btn primary-border circle arrow">Xem thêm<span class="lnr lnr-arrow-right"></span></a>
+				</div>
+			</div>
+		</section>
+		<!-- End Feature Area -->
+
+		<!-- Start Testimonial Area -->
+		<section id="index_testimonial_laptop_ipad" class="faq-area box_shadow">
+			<div class="container_new">
+				<div class="wrapper socials wrapper-center-block" data-lead-id="socials">
+				    <div class="container-testimonial text-center">
+				    	<h2 class="merry_whether_font dark_color_text py-3" data-lead-id="socials-title">Tick Data 99% Feature</h2>
+				    	<p id="zaloStatus" style="opacity: 0; transition: opacity 0.3s;">forextory.support@gmail.com</p>
+				        <div class="my-3" style="position: relative; width: 100%; height: 50px;">
+			        		<img onclick="toggleZaloStatus()" style="max-height: 100%; margin: 0px 25px; cursor: pointer;" src="{% static 'img/fxtory-gmail-icon.png' %}" alt="forextory gmail" alt="fxtory gmail">
+				        	<a href="https://www.facebook.com/dongphan.forextory" target="_blank">
+				        		<img style="max-height: 100%; margin: 0px 25px;" src="{% static 'img/fxtory-facebook-icon.png'%}" alt="fxtory facebook" data-lead-id="socials-img">
+				        	</a>
+				        	<a href="https://www.web.telegram.org/forextory" target="_blank">
+				        		<img style="max-height: 100%; margin: 0px 25px;" src="{% static 'img/fxtory-tele-icon.png' %}" alt="forextory telegram">
+				        	</a>
+				        </div>
+				        <div class="row">
+				            <div class="col-xs-12 col-lg-6 center-block center-block-inline" data-lead-id="social-1">
+				                <div class="fill">
+				                    <p class="rounded quote maven_font" data-lead-id="social-1-text" style="min-height: 115px"><em>Định dạng: Dữ liệu tick data chuẩn đến từng milisecond (mili giây; 1 giây = 1000 milisecond) thay vì dữ liệu 1-minute data mặc định của sàn.<br><br>
+				                    Độ chính xác: Chất lượng dữ liệu có độ chính xác 99% và có thể kiểm tra trực tiếp mỗi lần backtest. 
+									 <br> <br>
+									Nguồn dữ liệu: Forextory convert dữ liệu trực tiếp từ Dukascapy với các nguồn dữ liệu khác đang trong quá trình phát triển. Dakascopy là nguồn dữ liệu chính xác nhất trên thế giới hiện nay và cũng là nguồn của các bên cung cấp dữ liệu khác như Tickstory, Tickdata suit, EODData, Tickdata, …
+									</em></p>
+				                    <div class="d-flex align-items-center">
+				                        <a href="https://www.facebook.com/donphan.forextory" target="_blank">
+				                        	<img class="rounded-circle" src="{% static 'testimonial/img/first-icon.png'%}" alt="Khách hàng" data-lead-id="social-1-img">
+				                        </a>
+				                        <div class="socials-quote-title">
+				                            <a href="https://www.facebook.com/donphan.forextory" target="_blank">
+				                            	<p class="name merry_whether_font" data-lead-id="social-1-name"><strong> CHẤT LƯỢNG 99% </strong></p>
+				                            </a>	    
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-xs-12 col-lg-6 center-block center-block-inline" data-lead-id="social-2">
+				                <div class="fill">
+				                    <p class="rounded quote maven_font" data-lead-id="social-2-text" style="min-height: 115px"><em>Dữ liệu của Forextory được kiểm tra là nguồn dữ liệu có nhiều tick data nhất trên thị trường hiện nay, lượng tick data nhiều hơn so với các nguồn dữ liệu chất lượng 99% khác. Tuy chỉ hơn từ vài chục đến trăm tick data trên một năm, Forextory vẫn thể hiện rằng nguồn dữ liệu của mình là một trong những nguồn uy tín nhất.<br><br>
+									Khách hàng có thể dễ dàng kiểm tra số lượng tick data khi backtest. Đặc biệt, với chính sách miễn phí download dữ liệu 6 tháng trên các cặp giao dịch, khách hàng hoàn toàn có thể sử dụng thử nguồn dữ liệu của Forextory và so sánh với các nguồn dữ liệu hiện nay.
+									</em></p>
+				                   	<div class="d-flex align-items-center">
+				                        <a href="https://www.facebook.com/donphan.forextory" target="_blank">
+				                        	<img class="rounded-circle" src="{% static 'testimonial/img/second-icon.png'%}" alt="Khách hàng" data-lead-id="social-2-img">
+				                        </a>
+				                        <div class="socials-quote-title">
+				                            <a href="https://www.facebook.com/donphan.forextory" target="_blank">
+				                            	<p class="name merry_whether_font" data-lead-id="social-2-name"><strong> NHIỀU TICK NHẤT </strong></p>
+				                            </a>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-xs-12 col-lg-6 center-block center-block-inline" data-lead-id="social-3">
+				                <div class="fill">
+				                    <p class="rounded quote maven_font" data-lead-id="social-3-text" style="min-height: 115px"><em>
+									Gói FREE: Khách hàng được cấp quyền truy cập download miễn phí dữ liệu lịch sử của 6 tháng gần nhất trên website.<br> <br>
+									Gói STANDARD: Trong một tháng, khách hàng được cấp quyền truy cập download tất cả dữ liệu trên Forextory và hưởng tất cả các dịch vụ khác do Forextory cung cấp.<br><br>
+									Gói PRO: Trong một năm, khách hàng được cấp quyền truy cập download tất cả dữ liệu trên Forextory và hưởng tất cả các dịch vụ khác do Forextory cung cấp.<br><br>
+									Gói LIFETIME: Khách hàng được hưởng tất cả các dịch vụ khác do Forextory cung cấp trọn đời.
+									</em></p>
+				                    <div class="d-flex align-items-center">
+				                    	<a href="https://www.facebook.com/donphan.forextory" target="_blank">
+				                        	<img class="rounded-circle" src="{% static 'testimonial/img/third-icon.png'%}" alt="Khách hàng" data-lead-id="social-3-img">
+				                        </a>
+				                        <div class="socials-quote-title">
+				                            <a href="https://www.facebook.com/donphan.forextory" target="_blank">
+				                            	<p class="name merry_whether_font" data-lead-id="social-3-name"><strong>GIÁ ƯU ĐÃI NHẤT</strong></p>
+				                            </a>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-xs-12 col-lg-6 center-block center-block-inline" data-lead-id="social-4">
+				                <div class="fill">
+				                    <p class="rounded quote maven_font" data-lead-id="social-4-text" style="min-height: 115px"><em>Khách hàng dễ dàng download trực tiếp dữ liệu từ website và cloud của Forextory mà không cần tài bất cứ phần mềm trung gian nào về máy. <br> <br>
+				                    Định dạng file fxt, hst phù hợp với các trading platform: <br> 
+				                    Metatrader 4, Metatrader 5 <br> <br>
+				                    ĐẶC BIỆT: Nguồn dữ liệu của Forextory lên đến 15 năm, ngoài thời gian mặc định trên website, khách hàng được quyền yêu cầu cập nhật cặp giao dịch và lịch sử giá trong thời gian cụ thể từ năm 2005 đến nay (đơn vị: tháng) theo mong muốn của khách hàng thông qua liên hệ trực tiếp với đội ngũ chăm sóc khách hàng của Forextory.	
+										</em></p>
+				                    <div class="d-flex align-items-center">
+				                    	<a href="https://www.facebook.com/candy.meo.790" target="_blank">
+				                        	<img class="rounded-circle" src="{% static 'testimonial/img/fourth-icon.png'%}" alt="Khách hàng" data-lead-id="social-4-img">
+				                        </a>
+				                        <div class="socials-quote-title">
+				                        	<a href="https://www.facebook.com/candy.meo.790" target="_blank">
+				                            	<p class="name merry_whether_font" data-lead-id="social-4-name"><strong>CÀI ĐẶT DỄ DÀNG<br>DỮ LIỆU LÊN ĐẾN 15 NĂM</strong></p>
+				                            </a>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+			</div>
+		</section>
+		<!-- End Testimonial Area -->
+
+		<!-- Start About Area -->
+		<section id="index_about_laptop_ipad" class="about-area pt-20 pb-20 box_shadow">
+			<div class="container_new">
+				<div class="row align-items-center">
+					<div class="col-lg-6">
+						<div class="story-content my-5">
+							<h2 class="merry_whether_font dark_color_text" style="font-size: 28px;">Giới thiệu về 
+							<span class="merry_whether_font dark_color_text">Forextory</span></h2>
+							<div class="mt-30 text-justify maven_font dark_color_text text_indent_20 main-introduction">
+								<p>{% autoescape off %}{{ introduction.content }}{% endautoescape %}</p>	
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<img class="img-fluid d-flex mx-auto" src="{% static 'img/about.png' %}" alt="cây xương rồng">
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End About Area -->
+
+		<!-- Start Testimonial Area -->
+		<section id="index_testimonial_iphone" class="faq-area box_shadow">
+			<div style="margin: 0 4%;">
+				<div class="wrapper socials wrapper-center-block the-stupid-wrapper" data-lead-id="socials">
+				    <div class="container-testimonial text-center">
+				    	<h2 class="merry_whether_font dark_color_text" data-lead-id="socials-title">Tick Data 99% Feature</h2>
+				    	<p id="zaloStatusIphone" style="opacity: 0; transition: opacity 0.3s;">forextory.support@gmail.com</p>
+				        <div style="position: relative; width: 100%; height: 40px; margin-bottom: 15px;">
+			        		<img onclick="toggleZaloStatusIphone()" style="max-height: 100%; margin: 0px 15px; cursor: pointer;" src="{% static 'img/fxtory-gmail-icon.png' %}" alt="forextory gmail" >
+				        	<a href="https://www.facebook.com/dongphan.forextory/" target="_blank">
+				        		<img style="max-height: 100%; margin: 0px 15px;" src="{% static 'img/fxtory-facebook-icon.png'%}" alt="fxtory facebook" data-lead-id="socials-img">
+				        	</a>
+				        	<a href="https://www.web.telegram.org/forextory" target="_blank">
+				        		<img style="max-height: 100%; margin: 0px 15px;" src="{% static 'img/fxtory-tele-icon.png' %}" alt="forextory telegram">
+				        	</a>
+				        </div>
+				        
+				        <div class="row">
+				            <div class="col-xs-12 col-lg-6 center-block center-block-inline" data-lead-id="social-1">
+				                <div class="fill">
+				                    <p class="rounded quote maven_font" data-lead-id="social-1-text" style="min-height: 115px"><em>Định dạng: Dữ liệu tick data chuẩn đến từng milisecond (mili giây; 1 giây = 1000 milisecond) thay vì dữ liệu 1-minute data mặc định của sàn.<br><br>
+									Nguồn dữ liệu: Forextory convert dữ liệu trực tiếp từ Dukascapy với các nguồn dữ liệu khác đang trong quá trình phát triển. Dakascopy là nguồn dữ liệu chính xác nhất trên thế giới hiện nay và cũng là nguồn của các bên cung cấp dữ liệu khác như Tickstory, Tickdata suit, EODData, Tickdata, … <br> <br>
+									Độ chính xác: Chất lượng dữ liệu có độ chính xác 99% và có thể kiểm tra trực tiếp mỗi lần backtest.</em></p>
+				                    <div class="d-flex align-items-center">
+				                        <a href="https://www.facebook.com/dongphan.forextory/" target="_blank">
+				                        	<img class="rounded-circle" src="{% static 'testimonial/img/first-icon.png'%}" alt="Khách hàng" data-lead-id="social-1-img">
+				                        </a>
+				                        <div class="socials-quote-title">
+				                            <a href="https://www.facebook.com/dongphan.forextory/" target="_blank">
+				                            	<p class="name merry_whether_font" data-lead-id="social-1-name"><strong>CHẤT LƯỢNG 99%</strong></p>
+				                            </a>	    
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-xs-12 col-lg-6 center-block center-block-inline" data-lead-id="social-2">
+				                <div class="fill">
+				                    <p class="rounded quote maven_font" data-lead-id="social-2-text" style="min-height: 115px"><em>Dữ liệu của Forextory được kiểm tra là nguồn dữ liệu có nhiều tick data nhất trên thị trường hiện nay, lượng tick data nhiều hơn so với các nguồn dữ liệu chất lượng 99% khác. Tuy chỉ hơn từ vài chục đến trăm tick data trên một năm, Forextory vẫn thể hiện rằng nguồn dữ liệu của mình là một trong những nguồn uy tín nhất.<br><br>
+									Khách hàng có thể dễ dàng kiểm tra số lượng tick data khi backtest. Đặc biệt, với chính sách miễn phí download dữ liệu 6 tháng trên các cặp giao dịch, khách hàng hoàn toàn có thể sử dụng thử nguồn dữ liệu của Forextory và so sánh với các nguồn dữ liệu hiện nay.</em></p>
+				                    <div class="d-flex align-items-center">
+				                        <a href="https://www.facebook.com/dongphan.forextory/" target="_blank">
+				                        	<img class="rounded-circle" src="{% static 'testimonial/img/second-icon.png'%}" alt="Khách hàng" data-lead-id="social-2-img">
+				                        </a>
+				                        <div class="socials-quote-title">
+				                            <a href="https://www.facebook.com/dongphan.forextory/" target="_blank">
+				                            	<p class="name merry_whether_font" data-lead-id="social-2-name"><strong>NHIỀU TICK NHẤT</strong></p>
+				                            </a>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-xs-12 col-lg-6 center-block center-block-inline" data-lead-id="social-3">
+				                <div class="fill">
+				                    <p class="rounded quote maven_font" data-lead-id="social-3-text" style="min-height: 115px"><em>Gói FREE: Khách hàng được cấp quyền truy cập download miễn phí dữ liệu lịch sử của 6 tháng gần nhất trên website.<br> <br>
+									Gói STANDARD: Trong một tháng, khách hàng được cấp quyền truy cập download tất cả dữ liệu trên Forextory và hưởng tất cả các dịch vụ khác do Forextory cung cấp.<br><br>
+									Gói PRO: Trong một năm, khách hàng được cấp quyền truy cập download tất cả dữ liệu trên Forextory và hưởng tất cả các dịch vụ khác do Forextory cung cấp.<br><br>
+									Gói LIFETIME: Khách hàng được hưởng tất cả các dịch vụ khác do Forextory cung cấp trọn đời.</em></p>
+				                    <div class="d-flex align-items-center">
+				                    	<a href="https://www.facebook.com/dongphan.forextory/" target="_blank">
+				                        	<img class="rounded-circle" src="{% static 'testimonial/img/third-icon.png'%}" alt="Khách hàng" data-lead-id="social-3-img">
+				                        </a>
+				                        <div class="socials-quote-title">
+				                            <a href="https://www.facebook.com/dongphan.forextory/" target="_blank">
+				                            	<p class="name merry_whether_font" data-lead-id="social-3-name"><strong>GIÁ ƯU ĐÃI NHẤT</strong></p>
+				                            </a>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-xs-12 col-lg-6 center-block center-block-inline" data-lead-id="social-4">
+				                <div class="fill">
+				                    <p class="rounded quote maven_font" data-lead-id="social-4-text" style="min-height: 115px"><em>Khách hàng dễ dàng download trực tiếp dữ liệu từ website và cloud của Forextory mà không cần tài bất cứ phần mềm trung gian nào về máy. <br> <br>
+				                    Định dạng file fxt, hst phù hợp với các trading platform: <br> 
+				                    Metatrader 4, Metatrader 5 <br> <br>
+				                    ĐẶC BIỆT: Nguồn dữ liệu của Forextory lên đến 15 năm, ngoài thời gian mặc định trên website, khách hàng được quyền yêu cầu cập nhật cặp giao dịch và lịch sử giá trong thời gian cụ thể từ năm 2005 đến nay (đơn vị: tháng) theo mong muốn của khách hàng thông qua liên hệ trực tiếp với đội ngũ chăm sóc khách hàng của Forextory.</em></p>
+				                    <div class="d-flex align-items-center">
+				                    	<a href="https://www.facebook.com/dongphan.forextory/" target="_blank">
+				                        	<img class="rounded-circle" src="{% static 'testimonial/img/fourth-icon.png'%}" alt="Khách hàng" data-lead-id="social-4-img">
+				                        </a>
+				                        <div class="socials-quote-title">
+				                        	<a href="https://www.facebook.com/dongphan.forextory/" target="_blank">
+				                            	<p class="name merry_whether_font" data-lead-id="social-4-name"><strong>KHÔNG CẦN CÀI ĐẶT<br>DỮ LIỆU LÊN ĐẾN 15 NĂM</strong></p>
+				                            </a>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+			</div>
+		</section>
+		<!-- End Testimonial Area -->
+
+		<!-- Start About Area -->
+		<section id="index_about_iphone" class="about-area box_shadow">
+			<div class="container_new">
+				<div class="row align-items-center">
+					<div class="col-lg-6">
+						<div class="story-content" style="overflow: hidden;">
+							<h2 class="merry_whether_font dark_color_text" style="font-size: 28px;">Giới thiệu về 
+							<span class="merry_whether_font dark_color_text">Forextory</span></h2>
+							<div class="mt-30 text-justify maven_font text_indent_20 main-introduction" style="color: #000;">
+								<p>{% autoescape off %}{{ introduction.content }}{% endautoescape %}</p>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="about-img-box">
+				<img id="about-img-iphone" src="{% static 'img/about.png' %}" alt="cây xương rồng">
+			</div>
+		</section>
+		<!-- End About Area -->
+
+		
+
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+{% load static %}
+		<p class="d-none page-title">Blog</p>
+		<div class="container">
+			<div class="row maven_font">
+				<div class="px-3 d-none d-md-block col-3 mt-5" id="blog-detail-nav">
+				{% if related_post %}
+					<div>
+						<h2 class="maven_font pb-1 px-2 mb-2 rounded">Liên quan</h2>
+						<ul>
+							{% for post in related_post %}
+								<li class="py-2 ml-3"><a class="related-post-list" href="{{ post.get_absolute_url }}">{{ post.name }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+				</div>
+				<div class="mt-3 mt-md-5 mb-0 mb-md-5 px-4 px-md-5 col-12 col-md-8" id="blog-post">
+					<!-- Blog title -->
+					<section>
+						<div class="text-center merry_whether_font">
+							<p>BLOG</p>
+						</div>
+						<div class="pb-3" id="blog-title">
+							<h1 class="merry_whether_font dark_color_text text-center">{{ blog_post.name }}</h1>
+						</div>
+					</section>
+
+					<!-- Blog date, author -->
+					<section>
+						<div class="" id="blog-date-author">
+							<h3 class="merry_whether_font dark_color_text text-center">Đăng ngày {{ blog_post.created_at|date:"j/n/Y" }} bởi <a href="/search/?q={{ blog_post.author }}">{{ blog_post.author }}</a></h3>
+						</div>
+						<div class="d-block mx-auto mt-20 mt-md-30" id="separate-title-and-content"></div>			
+					</section>
+
+					<!-- Blog image -->
+					{% if blog_post.main_img %}
+					<section>
+						<div class="mb-30 text-center" id="blog-image">
+							<img src="{{ blog_post.main_img.url }}" alt="Ảnh bìa blog">
+						</div>
+					</section>
+					{% endif %}
+
+					<!-- Blog content -->
+					<section>
+						<div class="blog-content-paragraph text_indent_20" id="blog-content">
+							{% autoescape off %}{{ blog_post.content }}{% endautoescape  %}
+						</div>
+					</section>
+
+					<!-- Author & Hastags-->
+					<section>
+						<div class="row w-100 m-0 p-0">
+							<div class="col-6 blog-content-paragraph">
+								{% if blog_post.hashtag %}
+								<p class="p-0 m-0">Hashtags: {% for tag in blog_post.split_to_single_tags %}<a href="/search/hashtags/?q={{ tag }}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+								{% endif %}
+							</div>
+							<div class="col-6 text-right" id="blog-author">
+								<a href="/search/?q={{ blog_post.author }}"><p>- {{ blog_post.author }} -</p></a>
+							</div>
+						</div>
+					</section>
+
+					<div class="d-block mx-auto mt-20 mt-md-30" id="separate-title-and-content"></div>	
+
+					<!-- Share facebook, twitter -->
+					<section>
+						<div class="dark_color_text row justify-content-center" id="social-media-share">
+							<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.unee.vn{{ blog_post.get_absolute_url }}%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;">
+								<div id="share-facebook" class="text-center rounded-circle d-flex justify-content-center align-items-center mx-1">
+									<i style="color: #A9A9A9" class="fa fa-facebook"></i>
+								</div>
+							</a>
+							<a href="https://twitter.com/intent/tweet?url=https://www.unee.vn{{ blog_post.get_absolute_url }}&button_hashtag=uneetree&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;">
+								<div id="share-twitter" class="text-center rounded-circle d-flex justify-content-center align-items-center mx-1"><i style="color: #A9A9A9" class="fa fa-twitter"></i></div>
+							</a>
+						</div>
+					</section>
+
+					<!-- Nav to prev and next post -->
+					<section>
+						<div class="row my-2 my-md-5 p-2 justify-content-between" id="nav-prev-next">
+							<div class="col-6 px-2" id="prev-post">
+								{% if prev_post %}
+								<a class="row" href="{{ prev_post.get_absolute_url }}">
+									<div class="col-2"><i style="color: #111; font-size: 17px; cursor: pointer;" class="fa fa-angle-left"></i></div>
+									<div class="col-10">
+										<h3 class="link-text maven_font dark_color_text">{{ prev_post.name }}</h3>
+									</div>
+								</a>
+								{% endif %}
+							</div>
+							<div class="col-6 px-2" id="next-post">
+								{% if next_post %}
+								<a class="row" href="{{ next_post.get_absolute_url }}">
+									<div class="col-10">
+										<h3 class="link-text maven_font dark_color_text text-right">{{ next_post.name }}</h3>
+									</div>
+									<div class="col-2 text-right"><i style="color: #111; font-size: 17px; cursor: pointer;" class="fa fa-angle-right"></i></div>
+								</a>
+								{% endif %}
+							</div>
+						</div>
+					</section>
+
+					<!-- Comment section -->
+					<section id="binh-luan">
+						<h2 class="maven_font dark_color_text my-2">Bình luận</h2>
+						<p class="maven_font dark_color_text" my-2>Các trường bắt buộc được đánh dấu *</p>
+						<form method="POST" action="">
+							{% csrf_token %}
+							{{ form }}
+							<button type="submit" class="my-2 genric-btn primary radius">Gửi</button>
+						</form>
+					</section>
+
+					<!-- Reply section -->
+					<section class="my-4 my-md-5" id="tra-loi">
+						{% for comment in comments %}
+						<div class="comment-individual p-3">
+							<div class="comment-author">
+								<p class="p-0 mb-1">{{ comment.author }}</p>
+							</div>
+							<div class="comment-time">
+								<p class="p-0 mb-1">{{ comment.created_at|date:"(j/n/Y, h:i a)" }}</p>
+							</div>
+							<div class="comment-content p-0">
+								{{ comment.content|linebreaks }}
+							</div>
+						</div>
+						{% endfor %}
+					</section>
+				</div>
+			</div>
+		</div>
+
+
+{% endblock %}
